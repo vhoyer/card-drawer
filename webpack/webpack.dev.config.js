@@ -22,7 +22,7 @@ module.exports = {
     filename: 'bundle.js',
   },
   devServer: {
-    contentBase: path.join(__dirname, '../'),
+    contentBase: srcDir,
     historyApiFallback: true,
   },
 }
