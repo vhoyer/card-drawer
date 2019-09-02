@@ -1,7 +1,17 @@
 import React from 'react';
+import { BrowserRouter, Route/*, Link*/ } from 'react-router-dom';
+import {
+  PlayDeckPage,
+  UploadDeckPage,
+} from './pages';
 
 export default function App() {
-  const greeting = 'Hello Function Component!';
+  return (
+    <BrowserRouter>
+      <h1>Card Drawer</h1>
 
-  return (<h1>{greeting}</h1>);
+      <Route path="/" exact component={UploadDeckPage} />
+      <Route path="/play" component={PlayDeckPage} />
+    </BrowserRouter>
+  );
 };
