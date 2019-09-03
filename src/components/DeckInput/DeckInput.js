@@ -10,7 +10,6 @@ function DeckInput({ dispatch }) {
     reader.onload = async ({ target: { result: file } }) => {
       const deck = await JSZip.loadAsync(file);
 
-      console.log(dispatch);
       dispatch(addAvailableDecks(deck));
     };
 

@@ -1,0 +1,11 @@
+.deck-table {
+  display: grid;
+  grid-gap: 24px;
+  grid-template: 'closed opened' auto / 1fr 1fr;
+  grid-auto-flow: column;
+}
+
+.deck-table__closed-cards {
+  grid-area: closed;
+  width: 100%;
+}

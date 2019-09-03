@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { asBase64ImageURI } from 'src/utils';
 
@@ -19,12 +20,16 @@ function DeckGallery({ availableDecks }) {
 
   return (
     <div className="decks">
-      {deckCovers.map(cover =>
-        <img
+      {deckCovers.map((cover, index) =>
+        <Link
           key={cover}
-          src={cover}
-          className="decks__cover"
-        />)
+          to={`/play/${index}`}
+        >
+          <img
+            src={cover}
+            className="decks__cover"
+          />
+        </Link>)
       }
     </div>
   );

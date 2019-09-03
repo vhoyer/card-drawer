@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route/*, Link*/ } from 'react-router-dom';
+import { BrowserRouter, Route } from 'react-router-dom';
 import {
   PlayDeckPage,
   UploadDeckPage,
@@ -11,7 +11,7 @@ export default function App() {
       <h1>Card Drawer</h1>
 
       <Route path="/" exact component={UploadDeckPage} />
-      <Route path="/play" component={PlayDeckPage} />
+      <Route path="/play/:id?" component={PlayDeckPage} />
     </BrowserRouter>
   );
 };

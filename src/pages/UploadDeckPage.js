@@ -1,4 +1,3 @@
-import './UploadDeckPage.scss';
 import React, { useState } from 'react';
 import DeckInput from 'src/components/DeckInput';
 import DeckGallery from 'src/components/DeckGallery';
