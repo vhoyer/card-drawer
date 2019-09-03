@@ -38,8 +38,6 @@ function PlayDeckPage({ match, history, decks }) {
     }
   }, [ deck ]);
 
-  console.log(availableIndexes);
-
   const drawCard = () => {
     setOpenCard(availableIndexes.shift());
     setAvailableIndexes(availableIndexes);
