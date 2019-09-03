@@ -1,0 +1,8 @@
+.decks {
+  display: grid;
+  grid-auto-flow: column;
+}
+
+.decks__cover {
+  width: 250px;
+}

@@ -1,3 +1,4 @@
+import './UploadDeckPage.scss';
 import React, { useState } from 'react';
 import JSZip from 'jszip';
 
@@ -9,16 +10,20 @@ export default function UploadDeckPage() {
   }
 
   const [decks, setDecks] = useState([]);
+  const [deckCovers, setDeckCovers] = useState([]);
 
   const handleFile = ({ target: { files } }) => {
     const reader = new FileReader();
 
     reader.onload = async ({ target: { result: file } }) => {
       const deck = await JSZip.loadAsync(file);
-      console.log(deck);
-      console.log(deck.file('Cover.jpg'));
 
-      setDecks([...decks, deck]);
+      const newDecks = [...decks, deck]
+      setDecks(newDecks);
+
+      const makeUriImg = async deck => `data:image/jpg;base64,${await deck.file('Cover.jpg').async('base64')}`
+      const newDeckCovers = await Promise.all(newDecks.map(makeUriImg));
+      setDeckCovers(newDeckCovers);
     };
 
     reader.readAsArrayBuffer(files[0]);
@@ -33,7 +38,12 @@ export default function UploadDeckPage() {
       />
 
       <div className="decks">
-        {decks.map(async (deck, index) => <img key={index} src={await deck.file('Cover.jpg').async('')}/>)}
+        {deckCovers.map(cover =>
+          <img
+            key={cover}
+            src={cover}
+            className="decks__cover"
+          />)}
       </div>
     </div>
   );
