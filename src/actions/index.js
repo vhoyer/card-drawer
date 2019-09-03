@@ -1,9 +1,6 @@
-export const setAvailableDecks = value => ({
-  type: 'SET_AVAILABLE_DECKS',
-  payload: value,
-});
+import * as types from './actionTypes';
 
-export const setCurrentDeck = value => ({
-  type: 'SET_CURRENT_DECK',
+export const addAvailableDecks = value => ({
+  type: types.addAvailableDecks,
   payload: value,
 });

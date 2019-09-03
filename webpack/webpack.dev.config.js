@@ -4,6 +4,11 @@ let path = require('path');
 let srcDir = path.join(__dirname, '../src')
 
 module.exports = {
+  resolve: {
+    alias: {
+      'src': srcDir,
+    },
+  },
   entry: [
     path.join(srcDir, 'index.js')
   ],

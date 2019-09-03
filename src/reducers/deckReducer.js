@@ -1,19 +1,15 @@
+import { addAvailableDecks } from 'src/actions/actionTypes';
+
 const initialState = {
-  currentDeck: null,
   availableDecks: [],
 };
 
 export const deckReducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'SET_AVAILABLE_DECKS':
+    case addAvailableDecks:
       return {
         ...state,
-        availableDecks: action.payload,
-      };
-    case 'SET_CURRENT_DECK':
-      return {
-        ...state,
-        currentDeck: action.payload,
+        availableDecks: [...state.availableDecks, action.payload],
       };
     default:
       return state;
