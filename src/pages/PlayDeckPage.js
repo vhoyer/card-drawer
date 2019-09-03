@@ -2,7 +2,7 @@ import './PlayDeckPage.scss';
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { asBase64ImageURI } from 'src/utils';
+import { asBase64ImageURI, shuffleArray } from 'src/utils';
 
 function PlayDeckPage({ match, history, decks }) {
   const deckId = match.params.id;
@@ -11,7 +11,9 @@ function PlayDeckPage({ match, history, decks }) {
     history.push('/');
   }
 
-  const [availableIndexes, setAvailableIndexes] = useState();
+  const [availableIndexes, setAvailableIndexes] = useState(
+    shuffleArray(Array.from({length:52}, (_, i) => i))
+  );
   const [deck, setCurrentDeck] = useState({});
   const [back, setBack] = useState('');
   const [cardFaces, setCardFaces] = useState([]);
@@ -25,7 +27,8 @@ function PlayDeckPage({ match, history, decks }) {
     const setImagesAsync = async () => {
       const range52 = Array.from({length:52}, (_, i) => `${i+1}`.padStart(2, '0'));
       const getFaceAsync = i => asBase64ImageURI(`Card_${i}`)(deck);
-      setCardFaces(await Promise.all(range52.map(getFaceAsync)));
+      const unshuffledFaces = await Promise.all(range52.map(getFaceAsync));
+      setCardFaces(shuffleArray(unshuffledFaces));
 
       setBack(await asBase64ImageURI('Back')(deck))
     };
@@ -35,8 +38,11 @@ function PlayDeckPage({ match, history, decks }) {
     }
   }, [ deck ]);
 
+  console.log(availableIndexes);
+
   const drawCard = () => {
-    setOpenCard(openCard === null ? 0 : openCard + 1);
+    setOpenCard(availableIndexes.shift());
+    setAvailableIndexes(availableIndexes);
   };
 
   return (
