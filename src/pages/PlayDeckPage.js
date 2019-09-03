@@ -11,9 +11,11 @@ function PlayDeckPage({ match, history, decks }) {
     history.push('/');
   }
 
-  const [currentDeck, setCurrentDeck] = useState({});
+  const [availableIndexes, setAvailableIndexes] = useState();
+  const [deck, setCurrentDeck] = useState({});
   const [back, setBack] = useState('');
-  const [cards, setCards] = useState([]);
+  const [cardFaces, setCardFaces] = useState([]);
+  const [openCard, setOpenCard] = useState(null);
 
   useEffect(() => {
     setCurrentDeck(decks[deckId]);
@@ -21,18 +23,37 @@ function PlayDeckPage({ match, history, decks }) {
 
   useEffect(() => {
     const setImagesAsync = async () => {
-      setBack(await asBase64ImageURI('Back')(currentDeck))
+      const range52 = Array.from({length:52}, (_, i) => `${i+1}`.padStart(2, '0'));
+      const getFaceAsync = i => asBase64ImageURI(`Card_${i}`)(deck);
+      setCardFaces(await Promise.all(range52.map(getFaceAsync)));
+
+      setBack(await asBase64ImageURI('Back')(deck))
     };
 
-    setImagesAsync()
-  }, [ currentDeck ])
+    if (deck) {
+      setImagesAsync();
+    }
+  }, [ deck ]);
+
+  const drawCard = () => {
+    setOpenCard(openCard === null ? 0 : openCard + 1);
+  };
 
   return (
     <div className="deck-table">
-      <img
-        className="deck-table__closed-cards"
-        src={back}
-      />
+      <button onClick={drawCard}>
+        <img
+          className="deck-table__closed-cards"
+          src={back}
+        />
+      </button>
+
+      {openCard != null &&
+        <img
+          className="deck-table__opened-cards"
+          src={cardFaces[openCard]}
+        />
+      }
     </div>
   );
 };
