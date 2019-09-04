@@ -1,0 +1,10 @@
+.decks {
+  display: grid;
+  grid-gap: 20px;
+  grid-auto-flow: column;
+  grid-template-columns: repeat(3, 1fr) auto;
+}
+
+.decks__cover {
+  width: 100%;
+}

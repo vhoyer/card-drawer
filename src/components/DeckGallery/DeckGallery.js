@@ -1,9 +1,10 @@
+import './DeckGallery.scss';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 function DeckGallery({ availableDecks }) {
-  const deckCovers = availableDecks.map(i => i['Cover.png'])
+  const deckCovers = availableDecks.map(i => i['Cover'])
 
   return (
     <div className="decks">
