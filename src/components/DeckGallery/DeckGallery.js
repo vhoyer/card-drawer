@@ -8,7 +8,7 @@ function DeckGallery({ availableDecks }) {
 
   useEffect(() => {
     const convertZipCollectionToCoverImages = (async (availableDecks) => {
-      const getCoverAsync = asBase64ImageURI('Cover');
+      const getCoverAsync = asBase64ImageURI('Cover.png');
       const availableDeckCoversAsync = availableDecks.map(getCoverAsync);
       const newDeckCovers = await Promise.all(availableDeckCoversAsync);
 

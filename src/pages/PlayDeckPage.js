@@ -26,11 +26,11 @@ function PlayDeckPage({ match, history, decks }) {
   useEffect(() => {
     const setImagesAsync = async () => {
       const range52 = Array.from({length:52}, (_, i) => `${i+1}`.padStart(2, '0'));
-      const getFaceAsync = i => asBase64ImageURI(`Card_${i}`)(deck);
+      const getFaceAsync = i => asBase64ImageURI(`Card_${i}.png`)(deck);
       const unshuffledFaces = await Promise.all(range52.map(getFaceAsync));
       setCardFaces(shuffleArray(unshuffledFaces));
 
-      setBack(await asBase64ImageURI('Back')(deck))
+      setBack(await asBase64ImageURI('Back.png')(deck))
     };
 
     if (deck) {

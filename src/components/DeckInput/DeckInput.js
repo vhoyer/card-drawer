@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { addAvailableDecks } from 'src/actions';
+import { asBase64ImageURI } from 'src/utils';
 import JSZip from 'jszip';
 
 function myState(initial) {
@@ -21,18 +22,34 @@ function DeckInput({ dispatch }) {
     stage: 'TO_UPLOAD',
   });
 
+  const convertZipToDeck = async (zip) => {
+    const fileNames = Object.keys(zip.files);
+    console.log(fileNames);
+
+    const getImagesAsync = (file) => asBase64ImageURI(file)(zip);
+
+    const allFiles = await Promise.all(fileNames.map(getImagesAsync));
+
+    const deck = fileNames.reduce((acc, cur, index) => {
+      acc[cur] = allFiles[index];
+
+      return acc;
+    }, {});
+
+    dispatch(addAvailableDecks(deck));
+    assignState({ stage: 'TO_UPLOAD' });
+  };
+
   const handleFile = ({ target: { files } }) => {
     const reader = new FileReader();
 
-    reader.onload = async ({ target: { result: file } }) => {
-      const deck = await JSZip.loadAsync(file);
-
-      dispatch(addAvailableDecks(deck));
-    };
-
-    reader.onloadstart = () => assignState({ stage: 'PROCESSING' });
-    reader.onloadend = () => assignState({ stage: 'TO_UPLOAD' });
+    reader.onloadstart = () => assignState({ stage: 'PROCESSING', loaded: 0 });
     reader.onprogress = ({ loaded, total }) => assignState({ loaded, total });
+    reader.onloadend = () => assignState({ stage: 'DECOMPRESSING' });
+    reader.onload = async ({ target: { result: file } }) => {
+      JSZip.loadAsync(file)
+        .then(convertZipToDeck);
+    };
 
     reader.readAsArrayBuffer(files[0]);
   };
@@ -52,6 +69,12 @@ function DeckInput({ dispatch }) {
           value={state.loaded}
           max={state.total}
         />
+      </div>
+    );
+  } else if (state.stage === 'DECOMPRESSING') {
+    return (
+      <div>
+        <span>Uncompressing...</span>
       </div>
     );
   } else {

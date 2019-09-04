@@ -4,7 +4,8 @@ const initialState = {
   availableDecks: [],
 };
 
-export const deckReducer = (state = initialState, action) => {
+
+const reducer = (state, action) => {
   switch (action.type) {
     case addAvailableDecks:
       return {
@@ -14,4 +15,12 @@ export const deckReducer = (state = initialState, action) => {
     default:
       return state;
   }
+};
+
+export const deckReducer = (state = initialState, action) => {
+  const newState = reducer(state, action);
+
+  console.log(newState);
+
+  return newState;
 }
