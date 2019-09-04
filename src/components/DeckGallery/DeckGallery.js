@@ -1,22 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { asBase64ImageURI } from 'src/utils';
 
 function DeckGallery({ availableDecks }) {
-  const [deckCovers, setDeckCovers] = useState([]);
-
-  useEffect(() => {
-    const convertZipCollectionToCoverImages = (async (availableDecks) => {
-      const getCoverAsync = asBase64ImageURI('Cover.png');
-      const availableDeckCoversAsync = availableDecks.map(getCoverAsync);
-      const newDeckCovers = await Promise.all(availableDeckCoversAsync);
-
-      setDeckCovers(newDeckCovers);
-    });
-
-    convertZipCollectionToCoverImages(availableDecks);
-  }, [ availableDecks ]);
+  const deckCovers = availableDecks.map(i => i['Cover.png'])
 
   return (
     <div className="decks">

@@ -24,13 +24,13 @@ function DeckInput({ dispatch }) {
 
   const convertZipToDeck = async (zip) => {
     const fileNames = Object.keys(zip.files);
-    console.log(fileNames);
 
     const getImagesAsync = (file) => asBase64ImageURI(file)(zip);
-
     const allFiles = await Promise.all(fileNames.map(getImagesAsync));
 
     const deck = fileNames.reduce((acc, cur, index) => {
+      console.log(cur.replace(/\.png$/, ''));
+
       acc[cur] = allFiles[index];
 
       return acc;
