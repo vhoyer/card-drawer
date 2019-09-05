@@ -1,7 +1,8 @@
-let webpack = require('webpack');
-let path = require('path');
+const webpack = require('webpack');
+const HtmlWebPackPlugin = require("html-webpack-plugin");
+const path = require('path');
 
-let srcDir = path.join(__dirname, '../src')
+const srcDir = path.join(__dirname, '../src')
 
 module.exports = {
   resolve: {
@@ -20,8 +21,17 @@ module.exports = {
     },{
       test: /\.scss$/,
       loader: ['style-loader', 'css-loader', 'sass-loader'],
+    },{
+      test: /\.html/,
+      loader: ['html-loader'],
     }],
   },
+  plugins: [
+    new HtmlWebPackPlugin({
+      template: path.join(srcDir, 'index.html'),
+      filename: './index.html',
+    }),
+  ],
   output: {
     path: path.join(__dirname, '../dist'),
     filename: 'bundle.js',
