@@ -1,16 +1,21 @@
 .deck-table {
   display: grid;
   grid-gap: 24px;
-  grid-template: 'closed opened' auto / 1fr 1fr;
+  grid-template: 'closed opened' 80vh / 1fr 1fr;
   grid-auto-flow: column;
+}
+
+.deck-table__closed-cards,
+.deck-table__opened-cards {
+  height: 100%;
+  object-fit: contain;
+  width: 100%;
 }
 
 .deck-table__closed-cards {
   grid-area: closed;
-  width: 100%;
 }
 
 .deck-table__opened-cards {
   grid-area: opened;
-  width: 100%;
 }
