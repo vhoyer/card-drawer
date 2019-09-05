@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { BrowserRouter, Route, Link } from 'react-router-dom';
 import {
   PlayDeckPage,
@@ -6,18 +6,9 @@ import {
 } from './pages';
 
 export default function App() {
-  const [basename, setBasename] = useState('/');
-
-  useEffect(() => {
-    setBasename(window.location.pathname);
-  }, []);
-
-
   return (
-    <BrowserRouter basename={basename}>
+    <BrowserRouter basename="/card-drawer/">
       <h1>Card Drawer</h1>
-      <small>in <em>{basename}</em></small>
-      <hr />
       <Link to="/">Home</Link>
       <hr />
 
