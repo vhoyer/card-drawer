@@ -7,7 +7,7 @@ import {
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
       <h1>Card Drawer</h1>
       <Link to="/">Home</Link>
       <hr />

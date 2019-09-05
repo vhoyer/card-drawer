@@ -18,7 +18,7 @@
   "bugs": {
     "url": "https://github.com/vhoyer/card-drawer/issues"
   },
-  "homepage": "https://github.com/vhoyer/card-drawer#readme",
+  "homepage": "https://vhoyer.github.io/card-drawer/",
   "devDependencies": {
     "@babel/core": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
