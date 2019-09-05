@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
+import StoreSyncFilesystem from 'src/components/StoreSyncFilesystem';
 import {
   PlayDeckPage,
   UploadDeckPage,
@@ -12,6 +13,7 @@ export default function App() {
 
       <Route path="/" exact component={UploadDeckPage} />
       <Route path="/play/:id?" component={PlayDeckPage} />
+      <StoreSyncFilesystem />
     </BrowserRouter>
   );
 };
