@@ -16,6 +16,8 @@ export default function App() {
   return (
     <BrowserRouter basename={basename}>
       <h1>Card Drawer</h1>
+      <small>in <em>{basename}</em></small>
+      <hr />
       <Link to="/">Home</Link>
       <hr />
 
