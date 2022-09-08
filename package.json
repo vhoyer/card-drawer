@@ -39,7 +39,7 @@
     "webpack-dev-server": "^3.8.0"
   },
   "dependencies": {
-    "jszip": "^3.2.2",
+    "jszip": "^3.7.0",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-redux": "^7.1.1",
